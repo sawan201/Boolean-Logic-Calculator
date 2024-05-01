@@ -1,3 +1,20 @@
+/*
+ * Main.cpp : Main driver which handles user input.
+ *
+ * 2024 ©Macrosoft
+ *
+ * Authors:
+ *   - Ahmad Awan
+ *   - Mario Simental
+ *   - Sulitan Subade
+ *   - Karsten Wolter
+ *   - Jack Pigott
+ *
+ * Creation Date: April 24, 2024
+ * Modification Date: May 1, 2024
+ * 
+ */
+
 #include <iostream>               // Include the I/O stream library for input and output operations.
 #include "FileParse.cpp"          // Include the external FileParse.cpp file for parsing utilities such as the shuntingYard function.
 
@@ -5,8 +22,8 @@
 bool evalPostfix(const string& postfix) {
     stack<bool> evalStack;       // Define a stack to hold boolean values during evaluation.
 
-    // Iterate over each character in the postfix string.
-    for (char c : postfix) {
+    
+    for (char c : postfix) {        // Iterate over each character in the postfix string.
         if (c == 'T' || c == 'F') { // If the character represents a boolean value (true or false),
             evalStack.push(c == 'T'); // Convert 'T' to true and 'F' to false, then push it onto the stack.
         } else if (isOperator(c)) {  // If the character is an operator,

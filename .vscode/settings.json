@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "stack": "cpp",
+        "xstring": "cpp",
+        "stdexcept": "cpp"
+    }
+}

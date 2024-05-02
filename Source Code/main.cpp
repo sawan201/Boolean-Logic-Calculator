@@ -11,7 +11,7 @@
  *   - Jack Pigott
  *
  * Creation Date: April 24, 2024
- * Modification Date: May 1, 2024
+ * Modification Date: May 2, 2024
  * 
  */
 
@@ -22,8 +22,12 @@
 #include <limits>                 // Include the library for error handling
 #include "FileParse.cpp"          // Include custom functions from FileParse.cpp for parsing.
 #include "TruthTable.cpp"         // Include custom functions from TruthTable.cpp for truth table printing.
+#include "BooleanDefinitions.h"   // Include the user-defined header file that defines true and false.
 
 using namespace std;              // Use the standard namespace to avoid prefixing with std::.
+
+char trueDef = 'T';          // Default definition for true.
+char falseDef = 'F';         // Default definition for false.
 
 // Function to evaluate a postfix expression consisting of boolean values.
 bool evalPostfix(const string& postfix) {
@@ -32,8 +36,8 @@ bool evalPostfix(const string& postfix) {
     // Iterate over each character in the postfix expression.
     for (char c : postfix) {
         // Check if character is a boolean literal 'T' or 'F'.
-        if (c == 'T' || c == 'F') {
-            evalStack.push(c == 'T');  // Push true for 'T', false for 'F'.
+        if (c == trueDef || c == falseDef) {
+            evalStack.push(c == trueDef);  // Push true for 'T', false for 'F'.
         } else if (isOperator(c)) {   // Check if character is an operator.
             if (c == '!') {           // Specifically check for the NOT operator.
                 if (evalStack.empty()) throw runtime_error("Missing operand for NOT operation");
@@ -59,6 +63,65 @@ bool evalPostfix(const string& postfix) {
     return evalStack.top();        // Return the result of the evaluated expression.
 }
 
+// Function to prompt the user to define true and false
+void defineTrueFalse() {
+    char trueInput, falseInput;
+
+    // Loop until the user enters valid single characters for true and false representations
+    do {
+        cout << "Please enter what you want 'true' to represent (single character only): ";
+        cin >> trueInput;
+        
+        // Check if input failed due to non-integer input
+        if (cin.fail()) {
+            cin.clear(); // Clear error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore bad input left in the input buffer
+            cout << "Invalid input. Please enter a single character." << endl;
+        } else if (cin.peek() != '\n') { // Check if input failed due to whitespaces.
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore bad input left in the input buffer
+            cout << "Invalid input. Please enter a single character with no whitespaces." << endl;
+        } else {
+            if (trueInput == falseDef) { // Check if user assigned true and false to the same definition.
+                cout << "Error: 'true' representation cannot be the same as 'false' representation. Please choose a different character." << endl;
+            } else { // Assign definition to true and break out of loop.
+                trueDef = trueInput;
+                break;
+            }
+        }
+    } while (true);
+
+    // Reset input stream and clear buffer
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+    // Loop until the user enters valid single characters for true and false representations
+    do {
+        cout << "Please enter what you want 'false' to represent (single character only): ";
+        cin >> falseInput;
+
+        // Check if input failed due to non-integer input
+        if (cin.fail()) {
+            cin.clear(); // Clear error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore bad input left in the input buffer
+            cout << "Invalid input. Please enter a single character." << endl;
+        } else if (cin.peek() != '\n') {
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore bad input left in the input buffer
+            cout << "Invalid input. Please enter only a single character." << endl;
+        } else {
+            if (falseInput == trueDef) { // Check if user assigned true and false to the same definition.
+                cout << "Error: 'false' representation cannot be the same as 'true' representation. Please choose a different character." << endl;
+            } else { // Assign definition to false and break out of loop.
+                falseDef = falseInput;
+                break; 
+            }
+        }
+    } while (true);
+
+    cout << "True representation set to: " << trueDef << endl;
+    cout << "False representation set to: " << falseDef << endl;
+}
+
+
 // Main function of the program, handling user interactions.
 int main() {
     bool running = true;           // Control variable to keep the program running.
@@ -68,8 +131,9 @@ int main() {
         // Display options to the user.
         cout << "\nWelcome to the Boolean Logic Calculator! Please Choose an option:\n"
              << "1) Calculator\n"
-             << "2) Truth Table\n"
-             << "3) Exit\n"
+             << "2) Define True and False\n"
+             << "3) Truth Table\n"
+             << "4) Exit\n"
              << endl;
 
         int choice;                // Variable to store user's choice.
@@ -92,7 +156,7 @@ int main() {
                 bool continueCalculator = true;  // Control variable for calculator loop.
                 while (continueCalculator) {
                     string expression;  // String to store the user's boolean expression.
-                    cout << "\nEnter a boolean expression (use T for true and F for false) or type 'exit' to return to main menu: ";
+                    cout << "\nEnter a boolean expression using '" << trueDef << "' for true and '" << falseDef << "' for false (or type 'exit' to return to main menu): ";
                     getline(cin, expression); // Read the complete line as an expression.
                     if (expression == "exit") {
                         continueCalculator = false;  // Exit calculator loop if user types 'exit'.
@@ -108,11 +172,14 @@ int main() {
                 }
                 break;
             }
-            case 2:                // Case for printing Truth Table.
+            case 2:                // Case for defining true and false.
+                defineTrueFalse();
+                break;
+            case 3:                // Case for printing Truth Table.
                 cout << "\n" << endl;
                 printTruthTable();
                 break;
-            case 3:                // Case to exit the program.
+            case 4:                // Case to exit the program.
                 running = false;   // Set running to false, stopping the loop.
                 break;
             default:               // Default case for invalid input.

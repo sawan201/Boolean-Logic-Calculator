@@ -11,7 +11,7 @@
  *   - Jack Pigott
  *
  * Creation Date: April 24, 2024
- * Modification Date: May 1, 2024
+ * Modification Date: May 2, 2024
  * 
  */
 
@@ -22,6 +22,7 @@
 #include <unordered_set>          // Include the library that provides the unordered set container.
 #include <exception>              // Include the library for exception handling utilities.
 #include "TokenType.h"            // Include the user-defined header file that defines the TokenType enumeration.
+#include "BooleanDefinitions.h"   // Include the user-defined header file that defines true and false.
 
 using namespace std;              // Declare usage of the standard namespace to avoid prefixing std:: on standard library types and functions.
 
@@ -62,7 +63,7 @@ string shuntingYard(const string& expression) {  // Function implementing the sh
 
     for (char c : expression) {   // Iterate over each character in the expression.
         if (isspace(c)) continue; // Skip whitespace characters.
-        if (isalpha(c) && (c == 'T' || c == 'F')) {  // Check if the character is a boolean value 'T' or 'F'.
+        if (isalpha(c) && (c == trueDef || c == falseDef)) {  // Check if the character is a valid definition for the boolean values.
             if (!expectOperand) {
                 throw runtime_error("Operand follows another operand or does not follow an operator");  // Error if two operands are found consecutively. 
             }

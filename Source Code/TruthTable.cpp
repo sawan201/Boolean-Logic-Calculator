@@ -11,11 +11,13 @@
  *   - Jack Pigott
  *
  * Creation Date: April 24, 2024
- * Modification Date: May 1, 2024
+ * Modification Date: May 2, 2024
  * 
  */
+
 #include <iostream>  // Include the library for input and output streaming.
 #include <iomanip>   // Include the library for manipulating input and output formatting.
+#include "BooleanDefinitions.h"   // Include the user-defined header file that defines true and false.
 
 // Define a function implementing the AND logic gate.
 bool AND(bool a, bool b) {
@@ -45,7 +47,7 @@ bool NOT(bool a) {
 // Function to print the truth table for two variables.
 void printTruthTable() {
     // Print headers for the truth table columns.
-    std::cout << "A B|\tAND\tOR\tNAND\tXOR |\tNOT A\t\tNOT B\n";
+    std::cout << trueDef << " " << falseDef << "|\tAND\tOR\tNAND\tXOR |\tNOT " << trueDef << "\t\tNOT " << falseDef << "\n";
     // Print a line to separate headers from the data.
     std::cout << "--------------------------------------------------------------"<< std::endl;
     // Nested loops to generate all combinations of A and B.

@@ -1,5 +1,5 @@
 /*
- * ShuntingYard.cpp : Implementation of the Shunting Yard algorithm to convert infix expressions to postfix notation.
+ * FileParse.cpp : Implementation of the Shunting Yard algorithm to convert infix expressions to postfix notation.
  *
  * 2024 ©Macrosoft
  *

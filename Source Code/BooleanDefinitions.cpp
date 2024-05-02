@@ -20,6 +20,9 @@
 
 using namespace std;              // Use the standard namespace to avoid prefixing with std::.
 
+char trueDef = 'T';          // Default definition for true.
+char falseDef = 'F';         // Default definition for false.
+
 // Function to prompt the user to define true and false
 void defineTrueFalse() {
     char trueInput, falseInput;

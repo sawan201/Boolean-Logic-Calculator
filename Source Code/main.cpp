@@ -27,9 +27,6 @@
 
 using namespace std;              // Use the standard namespace to avoid prefixing with std::.
 
-char trueDef = 'T';          // Default definition for true.
-char falseDef = 'F';         // Default definition for false.
-
 // Function to evaluate a postfix expression consisting of boolean values.
 bool evalPostfix(const string& postfix) {
     stack<bool> evalStack;        // Stack to hold boolean values during evaluation.

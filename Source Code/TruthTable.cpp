@@ -1,3 +1,19 @@
+/*
+ * TruthTable.cpp : Adds the functionality to print truth tables to the main program.
+ *
+ * 2024 ©Macrosoft
+ *
+ * Authors:
+ *   - Ahmad Awan
+ *   - Mario Simental
+ *   - Sulitan Subade
+ *   - Karsten Wolter
+ *   - Jack Pigott
+ *
+ * Creation Date: April 24, 2024
+ * Modification Date: May 1, 2024
+ * 
+ */
 #include <iostream>  // Include the library for input and output streaming.
 #include <iomanip>   // Include the library for manipulating input and output formatting.
 
